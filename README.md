@@ -1,11 +1,22 @@
-# Ragnar MSX Redesign
+# Ragnar MSX Redesign – Instalador Único
 
-Lógica completa baseada em app-r127.js (lab/ragnar-msx-r128-transporte).
+## Como instalar (um comando na VPS)
 
-Todos os handlers, estados, navegação, autenticação, reprodução, EPG, favoritos e telas da source original estão preservados.
+```bash
+bash /caminho/para/Ragnar-MSX-Redesign/installer/install-redesign.sh
+```
 
-O redesign visual (azul-escuro + dourado, fichas compactas) é aplicado sobre essa base.
+O script:
+1. Valida que o `app.js` atual existe em `/var/www/ragnar-app-msx/msx/`.
+2. Faz backup integral em `/var/backups/ragnar-msx/redesign-TIMESTAMP`.
+3. Aplica automaticamente o redesign visual (paleta azul-escuro + dourado, destaque, fichas compactas) sobre a lógica existente.
+4. Mantém `plugin.html` e `app.js` como entrada permanente.
+5. Não altera `panic-bridge.js`, `media.php`, backend ou resolver.
+6. Aborta se a validação falhar.
 
-Instalador valida arquivos e faz backup integral fora do document root antes de qualquer alteração.
+## Rollback
+```bash
+bash installer/rollback.sh /var/backups/ragnar-msx/redesign-YYYYMMDD-HHMMSS
+```
 
-Não modifica Panic Cactus.
+Nenhuma alteração no Panic Cactus.
