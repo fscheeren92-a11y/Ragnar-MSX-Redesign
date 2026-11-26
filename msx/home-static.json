@@ -1,0 +1,33 @@
+{
+  "type": "pages",
+  "headline": "Destaque",
+  "background": "https://via.placeholder.com/1920x1080/0a1628/1a3a5c",
+  "pages": [{
+    "items": [
+      {
+        "type": "teaser",
+        "layout": "1,0,14,5",
+        "title": "Magical Explorer (2026)",
+        "titleHeader": "SÉRIE EM DESTAQUE",
+        "titleFooter": "Um jogador apaixonado por conteúdo erótico decide se tornar o galã mais poderoso do jogo ao renascer em seu eroge favorito.",
+        "image": "https://via.placeholder.com/800x450/4a1a6a/ff69b4?text=Magical+Explorer",
+        "imageFiller": "height-right",
+        "badge": "2026",
+        "tag": "Animação",
+        "tagColor": "msx-yellow"
+      },
+      {
+        "type": "button",
+        "layout": "1,5,3,1",
+        "label": "VER EPISÓDIOS",
+        "color": "msx-yellow"
+      },
+      {
+        "type": "button",
+        "layout": "4,5,3,1",
+        "label": "+ MINHA LISTA",
+        "color": "msx-glass"
+      }
+    ]
+  }]
+}
