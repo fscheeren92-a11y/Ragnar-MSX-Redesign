@@ -1,29 +1,42 @@
 #!/bin/bash
-# Instalador automatizado – Ragnar MSX Redesign
-# Uso: bash install-redesign.sh
-# Assume que o repositório foi clonado ou os arquivos estão no diretório atual
+# Instalador seguro – valida antes de tocar em produção
+# Backup fora do document root
 set -euo pipefail
 
 DEST="/var/www/ragnar-app-msx"
+BACKUP_ROOT="/var/backups/ragnar-msx"
 TS=$(date +%Y%m%d-%H%M%S)
-BACKUP="$DEST/backup-redesign-$TS"
+BACKUP="$BACKUP_ROOT/redesign-$TS"
+SRC="$(cd "$(dirname "$0")/../msx" && pwd)"
 
-echo "=== Backup integral ==="
-mkdir -p "$BACKUP/msx"
-cp -a "$DEST/msx/start.json" "$DEST/msx/plugin.html" "$DEST/msx/app.js" "$DEST/msx/app-r127.js" "$DEST/msx/panic-bridge.js" "$DEST/msx/media.php" "$BACKUP/msx/" 2>/dev/null || true
+echo "=== Validação prévia ==="
+required=("$SRC/start.json" "$SRC/plugin.html" "$SRC/app.js" "$SRC/panic-bridge.js" "$SRC/media.php" "$SRC/ui/native.js")
+for f in "${required[@]}"; do
+  if [ ! -s "$f" ]; then
+    echo "ERRO: arquivo ausente ou vazio: $f"
+    exit 1
+  fi
+  size=$(stat -c%s "$f" 2>/dev/null || stat -f%z "$f")
+  if [ "$size" -lt 200 ]; then
+    echo "ERRO: arquivo muito pequeno (possível placeholder): $f ($size bytes)"
+    exit 1
+  fi
+done
 
-echo "=== Instalando redesign ==="
-SRC_DIR="$(cd "$(dirname "$0")/../msx" && pwd)"
-cp -f "$SRC_DIR/start.json" "$DEST/msx/start.json"
-cp -f "$SRC_DIR/plugin.html" "$DEST/msx/plugin.html"
-cp -f "$SRC_DIR/app.js" "$DEST/msx/app.js"
-cp -f "$SRC_DIR/panic-bridge.js" "$DEST/msx/panic-bridge.js"
-cp -f "$SRC_DIR/media.php" "$DEST/msx/media.php"
+echo "=== Backup integral fora do document root ==="
+mkdir -p "$BACKUP"
+cp -a "$DEST/msx" "$BACKUP/msx" 2>/dev/null || true
+cp -a "$DEST/integration" "$BACKUP/integration" 2>/dev/null || true
 
-# Mantém o app-r127.js original como referência
-cp -f "$SRC_DIR/app.js" "$DEST/msx/app-redesign.js"
+echo "=== Instalação ==="
+cp -f "$SRC/start.json" "$DEST/msx/"
+cp -f "$SRC/plugin.html" "$DEST/msx/"
+cp -f "$SRC/app.js" "$DEST/msx/"
+cp -f "$SRC/panic-bridge.js" "$DEST/msx/"
+cp -f "$SRC/media.php" "$DEST/msx/"
+mkdir -p "$DEST/msx/ui"
+cp -f "$SRC/ui/native.js" "$DEST/msx/ui/"
 
 echo "=== Concluído ==="
 echo "Backup: $BACKUP"
-echo "Teste o Start Parameter no MSX apontando para o novo start.json"
 echo "Rollback: cp -a $BACKUP/msx/* $DEST/msx/"
