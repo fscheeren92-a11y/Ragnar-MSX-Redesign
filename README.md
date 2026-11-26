@@ -1,23 +1,41 @@
-# Ragnar MSX Redesign
+# Ragnar MSX Redesign – Candidata Visual
 
-**Link:** https://github.com/fscheeren92-a11y/Ragnar-MSX-Redesign
+**Repositório:** https://github.com/fscheeren92-a11y/Ragnar-MSX-Redesign
 
-Redesign do layout do Panic Cactus MSX.
+Candidata de redesign visual para o Ragnar App MSX.
 
-## O que é
-Versão com layout melhorado (destaque grande + linha de posters + ícones na esquerda).
+## Base real
+- Branches de referência no repositório privado `panic-cactus-msx`:
+  - `release/ragnar-msx-r1.2.7`
+  - `fix/ragnar-r127-vod-metadata`
+  - `lab/ragnar-msx-r128-transporte`
+- Produção: https://ragnarapp.sbs
+- Resolver: https://painel.ragnarapp.sbs/api/resolve.php
+- Source instalada: VPS 51.79.39.164 → `/var/www/ragnar-app-msx`
 
-A lógica continua dinâmica (interaction plugin + chamadas ao backend igual ao original).
-Nada é estático de verdade — os dados de canais, filmes e séries vêm do serviço (service.php / API) como no panic-cactus-msx.
+**NÃO usa a branch `main` (Panic Cactus).**
+
+## O que esta candidata faz
+- Padroniza `start.json`, `plugin.html` e estrutura do `app.js`
+- Aplica o layout redesenhado (sidebar de ícones + destaque grande + linha de posters)
+- Preserva a lógica dinâmica existente (login, catálogo, canais, séries, favoritos, busca, player)
+- Inclui instalador, backup e rollback
 
 ## Arquivos principais
-- `msx/app.html` → ponto de entrada do interaction plugin
-- `msx/ui/native.js` → gerador do layout nativo (home com destaque + posters)
-- `msx/app.js` → controlador (login, catálogo, playback — mesma ideia do original)
+- `msx/start.json`
+- `msx/plugin.html`
+- `msx/app.js` (esqueleto pronto para receber a lógica real)
+- `installer/install.sh`
+- `docs/BACKUP_ROLLBACK.md`
 
-## Como usar
-1. Hospede os arquivos em um servidor (igual ao panic-cactus-msx).
-2. No Media Station X, coloque o Start Parameter apontando para o `msx/start.json` ou direto no interaction.
-3. O backend (login Xtream, catalog, media) precisa estar rodando no mesmo domínio ou configurado.
+## Instalação (na VPS)
+```bash
+cd /var/www/ragnar-app-msx
+# Backup primeiro (ver docs/BACKUP_ROLLBACK.md)
+bash /caminho/do/installer/install.sh
+```
 
-Baseado em: https://github.com/fscheeren92-a11y/panic-cactus-msx
+## Observações
+- Canais e séries já reproduzem.
+- Há falha conhecida na reprodução de filmes (investigar no backend/player).
+- Esta é uma candidata visual. Testar em homologação antes de produção.
