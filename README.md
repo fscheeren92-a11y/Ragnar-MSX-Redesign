@@ -1,23 +1,23 @@
 # Ragnar MSX Redesign
 
-Versão redesenhada do layout baseada no projeto **panic-cactus-msx**.
+**Link:** https://github.com/fscheeren92-a11y/Ragnar-MSX-Redesign
 
-## Objetivo
-Manter a lógica (login, catálogo Xtream, interaction plugin) e melhorar o visual da home e do catálogo:
+Redesign do layout do Panic Cactus MSX.
 
-- Sidebar com ícones
-- Destaque grande (teaser) no topo
-- Linha horizontal de posters (filmes/séries)
-- Mais espaçamento e hierarquia visual
+## O que é
+Versão com layout melhorado (destaque grande + linha de posters + ícones na esquerda).
+
+A lógica continua dinâmica (interaction plugin + chamadas ao backend igual ao original).
+Nada é estático de verdade — os dados de canais, filmes e séries vêm do serviço (service.php / API) como no panic-cactus-msx.
+
+## Arquivos principais
+- `msx/app.html` → ponto de entrada do interaction plugin
+- `msx/ui/native.js` → gerador do layout nativo (home com destaque + posters)
+- `msx/app.js` → controlador (login, catálogo, playback — mesma ideia do original)
 
 ## Como usar
-Este repositório é uma base de redesign. Para integrar no panic-cactus-msx:
+1. Hospede os arquivos em um servidor (igual ao panic-cactus-msx).
+2. No Media Station X, coloque o Start Parameter apontando para o `msx/start.json` ou direto no interaction.
+3. O backend (login Xtream, catalog, media) precisa estar rodando no mesmo domínio ou configurado.
 
-1. Substitua / adapte `msx/ui/native.js` com a função `U.home` e `U.catalog` novas.
-2. Ajuste cores, imagens e textos conforme o design desejado.
-
-Arquivos principais:
-- `msx/ui/native.js` → gerador do layout nativo MSX (versão redesenhada)
-- `msx/home-static.json` → exemplo estático do layout de destaque + biblioteca
-
-Base original: https://github.com/fscheeren92-a11y/panic-cactus-msx
+Baseado em: https://github.com/fscheeren92-a11y/panic-cactus-msx

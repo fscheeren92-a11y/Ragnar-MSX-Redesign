@@ -1,0 +1,10 @@
+{
+  "name": "Ragnar MSX Redesign",
+  "version": "1.0.0",
+  "parameter": "content:request:interaction:init@{PREFIX}{SERVER}/msx/app.html",
+  "welcome": "none",
+  "launcher": {
+    "icon": "play-circle-outline",
+    "color": "#087cfa"
+  }
+}
