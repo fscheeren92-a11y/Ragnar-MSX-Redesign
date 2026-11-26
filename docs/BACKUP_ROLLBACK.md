@@ -1,20 +1,14 @@
-# Backup e Rollback – Ragnar MSX Redesign
+# Backup e Rollback
 
-## Backup (antes de instalar)
+## Backup (executado pelo instalador)
+O script `installer/install-redesign.sh` cria automaticamente:
+`/var/www/ragnar-app-msx/backup-redesign-YYYYMMDD-HHMMSS`
+
+## Rollback manual
 ```bash
 cd /var/www/ragnar-app-msx
-mkdir -p backup-pre-redesign
-cp -a msx/start.json msx/plugin.html msx/app.js msx/app-r127.js backup-pre-redesign/
+cp -a backup-redesign-*/msx/* msx/
+systemctl reload php-fpm || true
 ```
 
-## Rollback
-```bash
-cd /var/www/ragnar-app-msx
-cp -a backup-pre-redesign/* msx/
-# ou use o backup gerado pelo install.sh
-```
-
-## Notas
-- Não altere nada no repositório privado Panic Cactus.
-- Teste primeiro em ambiente de homologação.
-- Falha conhecida: reprodução de filmes (investigar no player/backend).
+Nenhuma alteração foi feita no Panic Cactus.
