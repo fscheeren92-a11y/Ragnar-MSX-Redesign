@@ -1,11 +1,11 @@
-# Ragnar MSX Redesign – SOURCE COMPLETA
+# Ragnar MSX Redesign
 
-Lógica real do PanicBridge + media.php + redesign visual modular.
+Lógica completa baseada em app-r127.js (lab/ragnar-msx-r128-transporte).
 
-- Login, catálogo, reprodução, EPG, favoritos via PanicBridge real.
-- UI redesenhada em ui/native.js (destaque + posters compactos + sidebar).
-- Instalador valida tamanho dos arquivos e faz backup fora do document root.
-- Sem placeholders.
-- Não modifica Panic Cactus.
+Todos os handlers, estados, navegação, autenticação, reprodução, EPG, favoritos e telas da source original estão preservados.
 
-Instalação: bash installer/install-redesign.sh
+O redesign visual (azul-escuro + dourado, fichas compactas) é aplicado sobre essa base.
+
+Instalador valida arquivos e faz backup integral fora do document root antes de qualquer alteração.
+
+Não modifica Panic Cactus.
